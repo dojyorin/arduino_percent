@@ -2,8 +2,31 @@
 Simple Percent Codec for Arduino.
 
 
+# Example
+## Encode
+```c++
+const char* raw = "{<foo>'bar'}";
+
+char encoded[PERCENT::encodeLength(raw)];
+PERCENT::encode(raw, encoded);
+
+Serial.println(encoded);
+```
+
+
+## Decode
+```c++
+const char* encoded = "%7B%3Cfoo%3E%27bar%27%7D";
+
+char raw[PERCENT::decodeLength(encoded)];
+PERCENT::decode(encoded, raw);
+
+Serial.println(raw);
+```
+
+
 # API
-## `void PERCENT::encode(const char* input, char* output)`
+## void PERCENT::encode(const char* input, char* output)
 **Arguments**
 - `input`: Raw string.
 - `output`: Percent encoded string.
@@ -12,7 +35,7 @@ Simple Percent Codec for Arduino.
 - Nothing.
 
 
-## `size_t PERCENT::encodeLength(const char* input)`
+## size_t PERCENT::encodeLength(const char* input)
 **Arguments**
 - `input`: Raw string.
 
@@ -20,7 +43,7 @@ Simple Percent Codec for Arduino.
 - Number of characters after percent encoding.
 
 
-## `void PERCENT::decode(const char* input, char* output)`
+## void PERCENT::decode(const char* input, char* output)
 **Arguments**
 - `input`: Percent encoded string.
 - `output`: Raw string.
@@ -29,7 +52,7 @@ Simple Percent Codec for Arduino.
 - Nothing.
 
 
-## `size_t PERCENT::decodeLength(const char* input)`
+## size_t PERCENT::decodeLength(const char* input)
 **Arguments**
 - `input`: Percent encoded string.
 
