@@ -1,7 +1,6 @@
 # Arduino Percent Codec
 Simple Percent Codec for Arduino.
 
-
 # Example
 ## Encode
 ```c++
@@ -13,7 +12,6 @@ PERCENT::encode(raw, encoded);
 Serial.println(encoded);
 ```
 
-
 ## Decode
 ```c++
 const char* encoded = "%7B%3Cfoo%3E%27bar%27%7D";
@@ -24,7 +22,6 @@ PERCENT::decode(encoded, raw);
 Serial.println(raw);
 ```
 
-
 # API
 ## void PERCENT::encode(const char* input, char* output)
 **Arguments**
@@ -34,14 +31,12 @@ Serial.println(raw);
 **Return**
 - Nothing.
 
-
 ## size_t PERCENT::encodeLength(const char* input)
 **Arguments**
 - `input`: Raw string.
 
 **Return**
 - Number of characters after percent encoding.
-
 
 ## void PERCENT::decode(const char* input, char* output)
 **Arguments**
@@ -51,14 +46,12 @@ Serial.println(raw);
 **Return**
 - Nothing.
 
-
 ## size_t PERCENT::decodeLength(const char* input)
 **Arguments**
 - `input`: Percent encoded string.
 
 **Return**
 - Number of characters after percent decoding.
-
 
 # Disclaimer
 According to MIT License.
