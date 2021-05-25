@@ -1,5 +1,5 @@
-#ifndef Percent_Header
-#define Percent_Header
+#ifndef percent_hpp
+#define percent_hpp
 
 #include "inttypes.h"
 #include "string.h"
