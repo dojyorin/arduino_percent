@@ -1,45 +1,48 @@
 #include "./percent.hpp"
 
 namespace{
-    constexpr char headerTable[16] = {
-        0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66
-    };
+    constexpr char numerics[] = "0123456789ABCDEF";
+    constexpr char safes[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    constexpr bool safeTable[128] = {
-        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false,
-        true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false,
-        false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
-        true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false,
-        false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
-        true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false
-    };
+    uint8_t numericOf(char search){
+        if('`' < search){
+            search -= ' ';
+        }
 
-    constexpr uint8_t alphaTable[128] = {
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
-    };
+        for(uint8_t i = 0; i < 16; i++){
+            if(numerics[i] == search){
+                return i;
+            }
+        }
+
+        return 255;
+    }
+
+    uint8_t isOk(char search){
+        for(uint8_t i = 0; i < 66; i++){
+            if(safes[i] == search){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 void PERCENT::encode(const char* input, char* output){
     while(*input != '\0'){
-        if(safeTable[*input]){
+        if(isOk(*input)){
             *output++ = *input;
         }
         else{
             *output++ = '%';
-            *output++ = headerTable[*input >> 0x04];
-            *output++ = headerTable[*input & 0x0F];
+            *output++ = numerics[*input >> 0x04];
+            *output++ = numerics[*input & 0x0F];
         }
+
         input++;
     }
+
     *output = '\0';
 }
 
@@ -47,7 +50,7 @@ size_t PERCENT::encodeLength(const char* input){
     size_t length = 0;
 
     while(*input != '\0'){
-        length += safeTable[*input++] ? 1 : 3;
+        length += isOk(*input++) ? 1 : 3;
     }
 
     return length + 1;
@@ -56,13 +59,15 @@ size_t PERCENT::encodeLength(const char* input){
 void PERCENT::decode(const char* input, char* output){
     while(*input != '\0'){
         if(*input == '%'){
-            *output++ = (alphaTable[*++input] << 4) + alphaTable[*++input];
+            *output++ = (numericOf(*++input) << 4) + numericOf(*++input);
         }
         else{
             *output++ = *input;
         }
+
         input++;
     }
+
     *output = '\0';
 }
 
@@ -70,7 +75,7 @@ size_t PERCENT::decodeLength(const char* input){
     size_t length = 0;
 
     while(*input != '\0'){
-        input += (*input == '%') ? 3 : 1;
+        input += *input == '%' ? 3 : 1;
         length++;
     }
 
