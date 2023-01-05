@@ -19,8 +19,8 @@ namespace{
     }
 
     uint8_t isOk(char search){
-        for(uint8_t i = 0; i < 66; i++){
-            if(safes[i] == search){
+        for(auto v: safes){
+            if(v == search){
                 return true;
             }
         }
