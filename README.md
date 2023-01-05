@@ -5,7 +5,7 @@ Simple PERCENT Codec for Arduino.
 ## Encode
 ```c++
 const char data[] = "{<foo>'bar'}";
-char result[PERCENT::encodeLength(data)] = {};
+char result[PERCENT::encodeLength(data)];
 
 PERCENT::encode(data, result);
 ```
@@ -13,7 +13,7 @@ PERCENT::encode(data, result);
 ## Decode
 ```c++
 const char data[] = "%7B%3Cfoo%3E%27bar%27%7D";
-char result[PERCENT::decodeLength(data)] = {};
+char result[PERCENT::decodeLength(data)];
 
 PERCENT::decode(data, result);
 ```
