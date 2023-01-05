@@ -1,5 +1,4 @@
-#ifndef percent_hpp
-#define percent_hpp
+#pragma once
 
 #include "inttypes.h"
 #include "string.h"
@@ -10,5 +9,3 @@ namespace PERCENT{
     void decode(const char* input, char* output);
     size_t decodeLength(const char* input);
 }
-
-#endif
