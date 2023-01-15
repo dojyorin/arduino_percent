@@ -5,12 +5,12 @@ void setup(){
     Serial.begin(115200);
     while(!Serial);
 
-    const char* raw = "{<foo>'bar'}";
+    const char data[] = "{<foo>'bar'}";
+    char result[PERCENT::encodeLength(data)];
 
-    char encoded[PERCENT::encodeLength(raw)];
-    PERCENT::encode(raw, encoded);
+    PERCENT::encode(data, result);
 
-    Serial.println(encoded);
+    Serial.println(result);
 }
 
 void loop(){}

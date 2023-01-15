@@ -1,57 +1,49 @@
-# Arduino Percent Codec
-Simple Percent Codec for Arduino.
+# **Arduino PERCENT Codec**
+Simple PERCENT Codec for Arduino.
 
 # Example
 ## Encode
 ```c++
-const char* raw = "{<foo>'bar'}";
+const char data[] = "{<foo>'bar'}";
+char result[PERCENT::encodeLength(data)];
 
-char encoded[PERCENT::encodeLength(raw)];
-PERCENT::encode(raw, encoded);
-
-Serial.println(encoded);
+PERCENT::encode(data, result);
 ```
 
 ## Decode
 ```c++
-const char* encoded = "%7B%3Cfoo%3E%27bar%27%7D";
+const char data[] = "%7B%3Cfoo%3E%27bar%27%7D";
+char result[PERCENT::decodeLength(data)];
 
-char raw[PERCENT::decodeLength(encoded)];
-PERCENT::decode(encoded, raw);
-
-Serial.println(raw);
+PERCENT::decode(data, result);
 ```
 
 # API
-## void PERCENT::encode(const char* input, char* output)
-**Arguments**
-- `input`: Raw string.
-- `output`: Percent encoded string.
+## `PERCENT::encode()`
+- Arguments
+    - `input` : `const char*` ... URL unsafe string.
+    - `output` : `char*` ...  URL safe PERCENT encoded string.
+- Result
+    - `void`
 
-**Return**
-- Nothing.
+## `PERCENT::encodeLength()`
+- Arguments
+    - `input` : `const char*` ... URL unsafe string.
+- Result
+    - `size_t` ... Number of characters after percent encoding.
 
-## size_t PERCENT::encodeLength(const char* input)
-**Arguments**
-- `input`: Raw string.
+## `PERCENT::decode()`
+- Arguments
+    - `input` : `const char*` ...  URL safe PERCENT encoded string.
+    - `output` : `char*` ... URL unsafe string.
+- Result
+    - `void`
 
-**Return**
-- Number of characters after percent encoding.
-
-## void PERCENT::decode(const char* input, char* output)
-**Arguments**
-- `input`: Percent encoded string.
-- `output`: Raw string.
-
-**Return**
-- Nothing.
-
-## size_t PERCENT::decodeLength(const char* input)
-**Arguments**
-- `input`: Percent encoded string.
-
-**Return**
-- Number of characters after percent decoding.
+## `PERCENT::decodeLength()`
+- Arguments
+    - `input` : `const char*` ... URL safe PERCENT encoded string.
+- Result
+    - `size_t` ... Number of characters after percent decoding.
 
 # Disclaimer
 According to MIT License.
