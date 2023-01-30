@@ -2,16 +2,16 @@
 #include "../deps.h"
 
 namespace{
-    constexpr char numerics[] = "0123456789ABCDEF";
-    constexpr char safes[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    constexpr char hex[] = "0123456789ABCDEF";
+    constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    uint8_t numericOf(char search){
+    uint8_t hexOf(char search){
         if('`' < search){
             search -= ' ';
         }
 
         for(uint8_t i = 0; i < 16; i++){
-            if(numerics[i] == search){
+            if(hex[i] == search){
                 return i;
             }
         }
@@ -19,8 +19,8 @@ namespace{
         return 255;
     }
 
-    bool isOk(char search){
-        for(const auto &v: safes){
+    bool isUnreserved(char search){
+        for(const auto &v: unreserved){
             if(v == search){
                 return true;
             }
@@ -38,8 +38,8 @@ namespace PERCENT{
             }
             else{
                 *output++ = '%';
-                *output++ = numerics[*input >> 0x04];
-                *output++ = numerics[*input & 0x0F];
+                *output++ = hex[*input >> 0x04];
+                *output++ = hex[*input & 0x0F];
             }
 
             input++;
@@ -61,7 +61,7 @@ namespace PERCENT{
     void decode(const char* input, char* output){
         while(*input != '\0'){
             if(*input == '%'){
-                *output++ = (numericOf(*++input) << 4) + numericOf(*++input);
+                *output++ = (hexOf(*++input) << 4) + hexOf(*++input);
             }
             else{
                 *output++ = *input;
