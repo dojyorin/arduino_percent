@@ -1,7 +1,7 @@
-#include "./percent.hpp"
-
 #include "inttypes.h"
 #include "string.h"
+
+#include "./percent.hpp"
 
 namespace{
     constexpr char numerics[] = "0123456789ABCDEF";
