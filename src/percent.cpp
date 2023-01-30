@@ -19,7 +19,7 @@ namespace{
         return 255;
     }
 
-    uint8_t isOk(char search){
+    bool isOk(char search){
         for(const auto &v: safes){
             if(v == search){
                 return true;
