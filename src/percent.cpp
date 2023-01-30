@@ -1,5 +1,5 @@
-#include "../deps.h"
 #include "./percent.hpp"
+#include "../deps.h"
 
 namespace{
     constexpr char numerics[] = "0123456789ABCDEF";
