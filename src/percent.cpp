@@ -1,6 +1,4 @@
-#include "inttypes.h"
-#include "string.h"
-
+#include "../deps.h"
 #include "./percent.hpp"
 
 namespace{
