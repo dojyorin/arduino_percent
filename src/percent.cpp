@@ -1,5 +1,4 @@
 #include "./percent.hpp"
-#include "./deps.arduino_percent.hpp"
 
 namespace{
     constexpr char hex[] = "0123456789ABCDEF";
