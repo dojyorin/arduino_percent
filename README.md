@@ -18,6 +18,10 @@ char result[PERCENT::decodeLength(data)];
 PERCENT::decode(data, result);
 ```
 
+# Details
+The only export of this library will be `mod.(reponame).hpp`.
+Other source files are for internal use and should not normally be include.
+
 # API
 ## `PERCENT::encode()`
 - Arguments
