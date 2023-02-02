@@ -1,4 +1,7 @@
 # **Arduino PERCENT Codec**
+![Actions-Test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
+![Actions-Release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
+
 Simple PERCENT Codec for Arduino.
 
 # Example
