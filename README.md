@@ -19,7 +19,7 @@ PERCENT::decode(data, result);
 ```
 
 # Details
-The only export of this library will be `mod.(reponame).hpp`.
+The only export of this library will be [`mod.arduino_percent.hpp`](./src/mod.arduino_percent.hpp).
 Other source files are for internal use and should not normally be include.
 
 # API
