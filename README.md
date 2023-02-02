@@ -44,6 +44,3 @@ PERCENT::decode(data, result);
     - `input` : `const char*` ... URL safe PERCENT encoded string.
 - Result
     - `size_t` ... Number of characters after percent decoding.
-
-# Disclaimer
-According to MIT License.
