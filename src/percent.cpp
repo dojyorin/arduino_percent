@@ -32,7 +32,7 @@ namespace{
 namespace PERCENT{
     void encode(const char* input, char* output){
         while(*input != '\0'){
-            if(isOk(*input)){
+            if(isUnreserved(*input)){
                 *output++ = *input;
             }
             else{
@@ -51,7 +51,7 @@ namespace PERCENT{
         size_t length = 0;
 
         while(*input != '\0'){
-            length += isOk(*input++) ? 1 : 3;
+            length += isUnreserved(*input++) ? 1 : 3;
         }
 
         return length + 1;
