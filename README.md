@@ -18,6 +18,10 @@ char result[PERCENT::decodeLength(data)];
 PERCENT::decode(data, result);
 ```
 
+# Details
+The only export of this library will be [`mod.arduino_percent.hpp`](./src/mod.arduino_percent.hpp).
+Other source files are for internal use and should not normally be include.
+
 # API
 ## `PERCENT::encode()`
 - Arguments
@@ -44,6 +48,3 @@ PERCENT::decode(data, result);
     - `input` : `const char*` ... URL safe PERCENT encoded string.
 - Result
     - `size_t` ... Number of characters after percent decoding.
-
-# Disclaimer
-According to MIT License.
