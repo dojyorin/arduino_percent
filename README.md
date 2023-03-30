@@ -27,27 +27,27 @@ The only export of this library will be [`mod.arduino_percent.hpp`](./src/mod.ar
 Other source files are for internal use and should not normally be include.
 
 # API
-## `PERCENT::encode()`
+## `PERCENT::encode(input, output)`
 - Arguments
     - `input` : `const char*` ... URL unsafe string.
     - `output` : `char*` ...  URL safe PERCENT encoded string.
 - Result
     - `void`
 
-## `PERCENT::encodeLength()`
+## `PERCENT::encodeLength(input)`
 - Arguments
     - `input` : `const char*` ... URL unsafe string.
 - Result
     - `size_t` ... Number of characters after percent encoding.
 
-## `PERCENT::decode()`
+## `PERCENT::decode(input, output)`
 - Arguments
     - `input` : `const char*` ...  URL safe PERCENT encoded string.
     - `output` : `char*` ... URL unsafe string.
 - Result
     - `void`
 
-## `PERCENT::decodeLength()`
+## `PERCENT::decodeLength(input)`
 - Arguments
     - `input` : `const char*` ... URL safe PERCENT encoded string.
 - Result
