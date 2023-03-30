@@ -1,6 +1,7 @@
 #pragma once
 
-#include "./deps.arduino_percent.hpp"
+#include "stdint.h"
+#include "string.h"
 
 namespace PERCENT{
     void encode(const char* input, char* output);

@@ -1,8 +1,9 @@
-# **Arduino PERCENT Codec**
-![Actions-Test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
-![Actions-Release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
+# **Arduino PERCENT**
+![actions:test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
+![actions:release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
 
-Simple PERCENT Codec for Arduino.
+Convert string to url-safe.
+Easily convert to url-safe string.
 
 # Example
 ## Encode

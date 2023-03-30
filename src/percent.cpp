@@ -1,85 +1,86 @@
-#include "./percent.hpp"
+#include "./arduino_percent.hpp"
 
-namespace{
-    constexpr char hex[] = "0123456789ABCDEF";
-    constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+namespace
+{
 
-    uint8_t hexOf(char search){
-        if('`' < search){
-            search -= ' ';
-        }
+constexpr char hex[] = "0123456789ABCDEF";
+constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        for(uint8_t i = 0; i < 16; i++){
-            if(hex[i] == search){
-                return i;
-            }
-        }
-
-        return 255;
+uint8_t hexOf(char search){
+    if('`' < search){
+        search -= ' ';
     }
 
-    bool isUnreserved(char search){
-        for(const auto &v: unreserved){
-            if(v == search){
-                return true;
-            }
+    for(uint8_t i = 0; i < 16; i++){
+        if(hex[i] == search){
+            return i;
         }
-
-        return false;
     }
+
+    return 255;
 }
 
-namespace PERCENT{
-    void encode(const char* input, char* output){
-        while(*input != '\0'){
-            if(isUnreserved(*input)){
-                *output++ = *input;
-            }
-            else{
-                *output++ = '%';
-                *output++ = hex[*input >> 0x04];
-                *output++ = hex[*input & 0x0F];
-            }
-
-            input++;
+bool isUnreserved(char search){
+    for(const auto &v: unreserved){
+        if(v == search){
+            return true;
         }
-
-        *output = '\0';
     }
 
-    size_t encodeLength(const char* input){
-        size_t length = 0;
+    return false;
+}
 
-        while(*input != '\0'){
-            length += isUnreserved(*input++) ? 1 : 3;
+}
+
+void PERCENT::encode(const char* input, char* output){
+    while(*input != '\0'){
+        if(isUnreserved(*input)){
+            *output++ = *input;
+        }
+        else{
+            *output++ = '%';
+            *output++ = hex[*input >> 0x04];
+            *output++ = hex[*input & 0x0F];
         }
 
-        return length + 1;
+        input++;
     }
 
-    void decode(const char* input, char* output){
-        while(*input != '\0'){
-            if(*input == '%'){
-                *output++ = (hexOf(*++input) << 4) + hexOf(*++input);
-            }
-            else{
-                *output++ = *input;
-            }
+    *output = '\0';
+}
 
-            input++;
+size_t PERCENT::encodeLength(const char* input){
+    size_t length = 0;
+
+    while(*input != '\0'){
+        length += isUnreserved(*input++) ? 1 : 3;
+    }
+
+    return length + 1;
+}
+
+void PERCENT::decode(const char* input, char* output){
+    while(*input != '\0'){
+        if(*input == '%'){
+            *output++ = (hexOf(*++input) << 4) + hexOf(*++input);
+        }
+        else{
+            *output++ = *input;
         }
 
-        *output = '\0';
+        input++;
     }
 
-    size_t decodeLength(const char* input){
-        size_t length = 0;
+    *output = '\0';
+}
 
-        while(*input != '\0'){
-            input += *input == '%' ? 3 : 1;
-            length++;
-        }
+size_t PERCENT::decodeLength(const char* input){
+    size_t length = 0;
 
-        return length + 1;
+    while(*input != '\0'){
+        input += *input == '%' ? 3 : 1;
+        length++;
     }
+
+    return length + 1;
 }
