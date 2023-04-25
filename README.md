@@ -2,7 +2,7 @@
 ![actions:test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
 ![actions:release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
 
-Convert between string and URL-safe string.
+Convert between URL-unsafe string and URL-safe string.
 Easily convert to URL-safe string.
 
 # Example
