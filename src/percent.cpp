@@ -1,35 +1,32 @@
 #include "./arduino_percent.hpp"
 
-namespace
-{
+namespace{
+    constexpr char hex[] = "0123456789ABCDEF";
+    constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-constexpr char hex[] = "0123456789ABCDEF";
-constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-uint8_t hexOf(char search){
-    if('`' < search){
-        search -= ' ';
-    }
-
-    for(uint8_t i = 0; i < 16; i++){
-        if(hex[i] == search){
-            return i;
+    uint8_t hexOf(char search){
+        if('`' < search){
+            search -= ' ';
         }
-    }
 
-    return 255;
-}
-
-bool isUnreserved(char search){
-    for(const auto &v: unreserved){
-        if(v == search){
-            return true;
+        for(uint8_t i = 0; i < 16; i++){
+            if(hex[i] == search){
+                return i;
+            }
         }
+
+        return 255;
     }
 
-    return false;
-}
+    bool isUnreserved(char search){
+        for(const auto &v: unreserved){
+            if(v == search){
+                return true;
+            }
+        }
 
+        return false;
+    }
 }
 
 void PERCENT::encode(const char* input, char* output){
