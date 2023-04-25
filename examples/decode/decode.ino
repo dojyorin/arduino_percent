@@ -1,5 +1,4 @@
-#include "Arduino.h"
-#include "percent.hpp"
+#include "arduino_percent.hpp"
 
 void setup(){
     Serial.begin(115200);

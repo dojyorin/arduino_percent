@@ -1,5 +1,9 @@
-# **Arduino PERCENT Codec**
-Simple PERCENT Codec for Arduino.
+# **Arduino PERCENT**
+![actions:test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
+![actions:release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
+
+Convert between URL-unsafe string and URL-safe string.
+Easily convert to URL-safe string.
 
 # Example
 ## Encode
@@ -18,32 +22,33 @@ char result[PERCENT::decodeLength(data)];
 PERCENT::decode(data, result);
 ```
 
+# Details
+The only export of this library will be [`arduino_percent.hpp`](./src/arduino_percent.hpp).
+Other source files are for internal use and should not normally be include.
+
 # API
-## `PERCENT::encode()`
+## `PERCENT::encode(input, output)`
 - Arguments
-    - `input` : `const char*` ... URL unsafe string.
-    - `output` : `char*` ...  URL safe PERCENT encoded string.
+    - `input` : `const char*` ... URL-unsafe string.
+    - `output` : `char*` ...  URL-safe string.
 - Result
     - `void`
 
-## `PERCENT::encodeLength()`
+## `PERCENT::encodeLength(input)`
 - Arguments
-    - `input` : `const char*` ... URL unsafe string.
+    - `input` : `const char*` ... URL-unsafe string.
 - Result
-    - `size_t` ... Number of characters after percent encoding.
+    - `size_t` ... Number of output characters.
 
-## `PERCENT::decode()`
+## `PERCENT::decode(input, output)`
 - Arguments
-    - `input` : `const char*` ...  URL safe PERCENT encoded string.
-    - `output` : `char*` ... URL unsafe string.
+    - `input` : `const char*` ...  URL-safe string.
+    - `output` : `char*` ... URL-unsafe string.
 - Result
     - `void`
 
-## `PERCENT::decodeLength()`
+## `PERCENT::decodeLength(input)`
 - Arguments
-    - `input` : `const char*` ... URL safe PERCENT encoded string.
+    - `input` : `const char*` ... URL-safe string.
 - Result
-    - `size_t` ... Number of characters after percent decoding.
-
-# Disclaimer
-According to MIT License.
+    - `size_t` ... Number of output characters.
