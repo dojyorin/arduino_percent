@@ -29,7 +29,7 @@ namespace{
     }
 }
 
-void PERCENT::encode(const char* input, char* output){
+void percent::encode(const char* input, char* output){
     while(*input != '\0'){
         if(isUnreserved(*input)){
             *output++ = *input;
@@ -46,7 +46,7 @@ void PERCENT::encode(const char* input, char* output){
     *output = '\0';
 }
 
-size_t PERCENT::encodeLength(const char* input){
+size_t percent::encodeLength(const char* input){
     size_t length = 0;
 
     while(*input != '\0'){
@@ -56,7 +56,7 @@ size_t PERCENT::encodeLength(const char* input){
     return length + 1;
 }
 
-void PERCENT::decode(const char* input, char* output){
+void percent::decode(const char* input, char* output){
     while(*input != '\0'){
         if(*input == '%'){
             *output++ = (hexOf(*++input) << 4) + hexOf(*++input);
@@ -71,7 +71,7 @@ void PERCENT::decode(const char* input, char* output){
     *output = '\0';
 }
 
-size_t PERCENT::decodeLength(const char* input){
+size_t percent::decodeLength(const char* input){
     size_t length = 0;
 
     while(*input != '\0'){
