@@ -5,9 +5,9 @@ void setup(){
     while(!Serial);
 
     const char data[] = "{<foo>'bar'}";
-    char result[PERCENT::encodeLength(data)];
+    char result[percent::encodeLength(data)];
 
-    PERCENT::encode(data, result);
+    percent::encode(data, result);
 
     Serial.println(result);
 }
