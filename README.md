@@ -2,8 +2,8 @@
 ![actions:test](https://github.com/dojyorin/arduino_percent/actions/workflows/test.yaml/badge.svg)
 ![actions:release](https://github.com/dojyorin/arduino_percent/actions/workflows/release.yaml/badge.svg)
 
-Convert between URL-unsafe string and URL-safe string.
-Easily convert to URL-safe string.
+Convert between URL-unsafe string and Percent encoded string.
+Easily convert to Percent encoded string.
 
 # Example
 ## Encode
@@ -30,7 +30,7 @@ Other source files are for internal use and should not normally be include.
 ## `percent::encode(input, output)`
 - Arguments
     - `input` : `const char*` ... URL-unsafe string.
-    - `output` : `char*` ...  URL-safe string.
+    - `output` : `char*` ...  Percent encoded string.
 - Result
     - `void`
 
@@ -42,13 +42,13 @@ Other source files are for internal use and should not normally be include.
 
 ## `percent::decode(input, output)`
 - Arguments
-    - `input` : `const char*` ...  URL-safe string.
+    - `input` : `const char*` ...  Percent encoded string.
     - `output` : `char*` ... URL-unsafe string.
 - Result
     - `void`
 
 ## `percent::decodeLength(input)`
 - Arguments
-    - `input` : `const char*` ... URL-safe string.
+    - `input` : `const char*` ... Percent encoded string.
 - Result
     - `size_t` ... Number of output characters.
