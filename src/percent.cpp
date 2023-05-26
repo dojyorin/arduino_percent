@@ -1,21 +1,21 @@
 #include "./arduino_percent.hpp"
 
 namespace{
-    constexpr char hex[] = "0123456789ABCDEF";
+    constexpr char symbols[] = "0123456789ABCDEF";
     constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    uint8_t hexOf(char search){
+    uint8_t indexOf(char search){
         if('`' < search){
             search -= ' ';
         }
 
         for(uint8_t i = 0; i < 16; i++){
-            if(hex[i] == search){
+            if(symbols[i] == search){
                 return i;
             }
         }
 
-        return 255;
+        return 0xFF;
     }
 
     bool isUnreserved(char search){
@@ -36,8 +36,8 @@ void percent::encode(const char* input, char* output){
         }
         else{
             *output++ = '%';
-            *output++ = hex[*input >> 0x04];
-            *output++ = hex[*input & 0x0F];
+            *output++ = symbols[*input >> 0x04];
+            *output++ = symbols[*input & 0x0F];
         }
 
         input++;
@@ -59,7 +59,7 @@ size_t percent::encodeLength(const char* input){
 void percent::decode(const char* input, char* output){
     while(*input != '\0'){
         if(*input == '%'){
-            *output++ = (hexOf(*++input) << 4) + hexOf(*++input);
+            *output++ = (indexOf(*++input) << 4) + indexOf(*++input);
         }
         else{
             *output++ = *input;
