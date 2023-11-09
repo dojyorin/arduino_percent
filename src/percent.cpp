@@ -1,8 +1,8 @@
 #include "./arduino_percent.hpp"
 
 namespace{
-    constexpr char symbols[] = "0123456789ABCDEF";
-    constexpr char unreserved[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    constexpr char CODE[] = "0123456789ABCDEF";
+    constexpr char UNRESERVED[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     uint8_t indexOf(char search){
         if('`' < search){
@@ -10,7 +10,7 @@ namespace{
         }
 
         for(uint8_t i = 0; i < 16; i++){
-            if(symbols[i] == search){
+            if(::CODE[i] == search){
                 return i;
             }
         }
@@ -19,7 +19,7 @@ namespace{
     }
 
     bool isUnreserved(char search){
-        for(const auto &v: unreserved){
+        for(const auto &v: ::UNRESERVED){
             if(v == search){
                 return true;
             }
@@ -31,13 +31,13 @@ namespace{
 
 void percent::encode(const char* input, char* output){
     while(*input != '\0'){
-        if(isUnreserved(*input)){
+        if(::isUnreserved(*input)){
             *output++ = *input;
         }
         else{
             *output++ = '%';
-            *output++ = symbols[*input >> 0x04];
-            *output++ = symbols[*input & 0x0F];
+            *output++ = ::CODE[*input >> 0x04];
+            *output++ = ::CODE[*input & 0x0F];
         }
 
         input++;
@@ -50,7 +50,7 @@ size_t percent::encodeLength(const char* input){
     size_t length = 0;
 
     while(*input != '\0'){
-        length += isUnreserved(*input++) ? 1 : 3;
+        length += ::isUnreserved(*input++) ? 1 : 3;
     }
 
     return length + 1;
@@ -59,7 +59,7 @@ size_t percent::encodeLength(const char* input){
 void percent::decode(const char* input, char* output){
     while(*input != '\0'){
         if(*input == '%'){
-            *output++ = (indexOf(*++input) << 4) + indexOf(*++input);
+            *output++ = (::indexOf(*++input) << 4) + ::indexOf(*++input);
         }
         else{
             *output++ = *input;
