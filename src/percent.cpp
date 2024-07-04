@@ -1,16 +1,16 @@
 #include "./arduino_percent.hpp"
 
-namespace{
+namespace {
     constexpr char CODE[] = "0123456789ABCDEF";
     constexpr char UNRESERVED[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    uint8_t indexOf(char search){
-        if('`' < search){
+    uint8_t indexOf(char search) {
+        if('`' < search) {
             search -= ' ';
         }
 
-        for(uint8_t i = 0; i < 16; i++){
-            if(::CODE[i] == search){
+        for(uint8_t i = 0; i < 16; i++) {
+            if(::CODE[i] == search) {
                 return i;
             }
         }
@@ -18,9 +18,9 @@ namespace{
         return 0xFF;
     }
 
-    bool isUnreserved(char search){
-        for(const auto &v: ::UNRESERVED){
-            if(v == search){
+    bool isUnreserved(char search) {
+        for(const auto &v: ::UNRESERVED) {
+            if(v == search) {
                 return true;
             }
         }
@@ -29,12 +29,11 @@ namespace{
     }
 }
 
-void percent::encode(const char* input, char* output){
-    while(*input != '\0'){
-        if(::isUnreserved(*input)){
+void percent::encode(const char* input, char* output) {
+    while(*input != '\0') {
+        if(::isUnreserved(*input)) {
             *output++ = *input;
-        }
-        else{
+        } else {
             *output++ = '%';
             *output++ = ::CODE[*input >> 0x04];
             *output++ = ::CODE[*input & 0x0F];
@@ -46,22 +45,21 @@ void percent::encode(const char* input, char* output){
     *output = '\0';
 }
 
-size_t percent::encodeLength(const char* input){
+size_t percent::encodeLength(const char* input) {
     size_t length = 0;
 
-    while(*input != '\0'){
+    while(*input != '\0') {
         length += ::isUnreserved(*input++) ? 1 : 3;
     }
 
     return length + 1;
 }
 
-void percent::decode(const char* input, char* output){
-    while(*input != '\0'){
-        if(*input == '%'){
+void percent::decode(const char* input, char* output) {
+    while(*input != '\0') {
+        if(*input == '%') {
             *output++ = (::indexOf(*++input) << 4) + ::indexOf(*++input);
-        }
-        else{
+        } else {
             *output++ = *input;
         }
 
@@ -71,10 +69,10 @@ void percent::decode(const char* input, char* output){
     *output = '\0';
 }
 
-size_t percent::decodeLength(const char* input){
+size_t percent::decodeLength(const char* input) {
     size_t length = 0;
 
-    while(*input != '\0'){
+    while(*input != '\0') {
         input += *input == '%' ? 3 : 1;
         length++;
     }
