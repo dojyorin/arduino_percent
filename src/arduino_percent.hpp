@@ -7,7 +7,7 @@
 * Convert between URL-unsafe string and percent encoded string.
 * @see https://github.com/dojyorin/arduino_percent
 */
-namespace percent{
+namespace percent {
     /**
     * Convert URL-unsafe string to percent encoded string.
     * @example

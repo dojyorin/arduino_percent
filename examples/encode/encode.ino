@@ -1,6 +1,6 @@
 #include "arduino_percent.hpp"
 
-void setup(){
+void setup() {
     Serial.begin(115200);
     while(!Serial);
 
@@ -11,4 +11,6 @@ void setup(){
     Serial.println(output);
 }
 
-void loop(){}
+void loop() {
+    // nop
+}
