@@ -5,12 +5,12 @@ namespace {
     constexpr char UNRESERVED[] = "-._~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     uint8_t indexOf(char search) {
-        if('`' < search) {
+        if ('`' < search) {
             search -= ' ';
         }
 
-        for(uint8_t i = 0; i < 16; i++) {
-            if(::CODE[i] == search) {
+        for (uint8_t i = 0; i < 16; i++) {
+            if (::CODE[i] == search) {
                 return i;
             }
         }
@@ -19,8 +19,8 @@ namespace {
     }
 
     bool isUnreserved(char search) {
-        for(const auto &v: ::UNRESERVED) {
-            if(v == search) {
+        for (const auto &v: ::UNRESERVED) {
+            if (v == search) {
                 return true;
             }
         }
@@ -29,9 +29,12 @@ namespace {
     }
 }
 
+/**
+* @brief Convert URL-unsafe string to percent-encoded string.
+*/
 void percent::encode(const char* input, char* output) {
-    while(*input != '\0') {
-        if(::isUnreserved(*input)) {
+    while (*input != '\0') {
+        if (::isUnreserved(*input)) {
             *output++ = *input;
         } else {
             *output++ = '%';
@@ -45,19 +48,25 @@ void percent::encode(const char* input, char* output) {
     *output = '\0';
 }
 
+/**
+* @brief Calculate number of output characters.
+*/
 size_t percent::encodeLength(const char* input) {
     size_t length = 0;
 
-    while(*input != '\0') {
+    while (*input != '\0') {
         length += ::isUnreserved(*input++) ? 1 : 3;
     }
 
     return length + 1;
 }
 
+/**
+* @brief Convert percent-encoded string to URL-unsafe string.
+*/
 void percent::decode(const char* input, char* output) {
-    while(*input != '\0') {
-        if(*input == '%') {
+    while (*input != '\0') {
+        if (*input == '%') {
             *output++ = (::indexOf(*++input) << 4) + ::indexOf(*++input);
         } else {
             *output++ = *input;
@@ -69,10 +78,13 @@ void percent::decode(const char* input, char* output) {
     *output = '\0';
 }
 
+/**
+* @brief Calculate number of output characters.
+*/
 size_t percent::decodeLength(const char* input) {
     size_t length = 0;
 
-    while(*input != '\0') {
+    while (*input != '\0') {
         input += *input == '%' ? 3 : 1;
         length++;
     }

@@ -2,7 +2,7 @@
 
 void setup() {
     Serial.begin(115200);
-    while(!Serial);
+    while (!Serial) {}
 
     const char input[] = "%7B%3Cfoo%3E%27bar%27%7D";
     char output[percent::decodeLength(input)];
