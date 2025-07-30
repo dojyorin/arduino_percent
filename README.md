@@ -4,10 +4,11 @@
 ![shields:license](https://img.shields.io/github/license/dojyorin/arduino_percent)
 ![shields:release](https://img.shields.io/github/release/dojyorin/arduino_percent)
 
-Convert between URL-unsafe string and percent encoded string.
-Easily convert to percent encoded string.
+Convert between URL-unsafe string and percent-encoded string.
 
 ## Details
+Easily convert to percent-encoded string.
+
 Use [percent-encoding](https://developer.mozilla.org/docs/Glossary/Percent-encoding) to escape characters that cannot be used in URL.
 
 ## API
