@@ -12,4 +12,4 @@ Easily convert to percent-encoded string.
 Use [percent-encoding](https://developer.mozilla.org/docs/Glossary/Percent-encoding) to escape characters that cannot be used in URL.
 
 ## API
-See doxygen comments in [`main.cpp`](./src/main.cpp) for details.
+See [header](./src/arduino_percent.hpp) for details.
