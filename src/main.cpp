@@ -30,8 +30,8 @@ namespace {
 }
 
 /**
-* @brief Convert URL-unsafe string to percent-encoded string.
-*/
+ * @brief Convert URL-unsafe string to percent-encoded string.
+ */
 void percent::encode(const char* input, char* output) {
     while (*input != '\0') {
         if (::isUnreserved(*input)) {
@@ -49,8 +49,8 @@ void percent::encode(const char* input, char* output) {
 }
 
 /**
-* @brief Calculate number of output characters.
-*/
+ * @brief Calculate number of output characters.
+ */
 size_t percent::encodeLength(const char* input) {
     size_t length = 0;
 
@@ -62,8 +62,8 @@ size_t percent::encodeLength(const char* input) {
 }
 
 /**
-* @brief Convert percent-encoded string to URL-unsafe string.
-*/
+ * @brief Convert percent-encoded string to URL-unsafe string.
+ */
 void percent::decode(const char* input, char* output) {
     while (*input != '\0') {
         if (*input == '%') {
@@ -79,8 +79,8 @@ void percent::decode(const char* input, char* output) {
 }
 
 /**
-* @brief Calculate number of output characters.
-*/
+ * @brief Calculate number of output characters.
+ */
 size_t percent::decodeLength(const char* input) {
     size_t length = 0;
 
